@@ -10,10 +10,16 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitnessDB", {
-  useNewUrlParser: true,
-  useFindAndModify: false
-});
+
+mongoose.connect(
+  process.env.MONGODB_URI || 'mongodb://localhost/fitnessDB',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  }
+);
 
 require("./routes/api_routes.js")(app);
 require("./routes/html_routes.js")(app);
@@ -22,3 +28,4 @@ require("./routes/html_routes.js")(app);
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });
+
